@@ -2,13 +2,12 @@
 # Coconut Karaoke
 # 20 January 2017
 
-from stack import Stack
 import os
-import jinja2
-from flask import Flask, render_template, request, redirect, url_for, abort, session
+from stack import Stack
+from flask import Flask, render_template, request, redirect, url_for, session
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'F34TF$($e34D';
+app.config['SECRET_KEY'] = 'F34TF$($e34D'
 S = Stack()
 
 
@@ -34,7 +33,8 @@ def index():
             listy = open_file(genre)   # retrieve lyrics from text file
             listy_string = urllib.parse.quote("@".join(listy))
 
-            return redirect(url_for('lyrics')+'?listy='+listy_string) # add lyrics to browser to grab later
+            # Pass lyrics to the next page by adding them as a url parameter
+            return redirect(url_for('lyrics')+'?listy='+listy_string)
 
         else:
             raise ValueError('No lyrics matching your request were found')
@@ -51,7 +51,8 @@ def lyrics():
 
     if request.method == "POST":
 
-        session['message'] = request.form['message1']            # get input texts
+        # Retrieve the input that was entered in the form
+        session['message'] = request.form['message1']
         session['message'] += " " + request.form['message2']
         session['message'] += " " + request.form['message3']
         session['message'] += " " + request.form['message4']
