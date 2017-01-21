@@ -33,3 +33,20 @@ class ViewSmokeTestCase(TestCase):
         response = self.app.get('/lyrics')
 
         self.assertEqual(response.status_code, 200)
+
+    def test_music(self):
+        """
+        Test that the music page can be loaded.
+        """
+        import app
+
+        app.write_lyrics('test', 'This is a country song')
+        app.write_lyrics('test', 'This is a country song')
+        app.write_lyrics('test', 'This is a country song')
+        app.write_lyrics('test', 'Sing sing sing sing.')
+
+        app.S.push('test')
+
+        response = self.app.get('/music')
+
+        self.assertEqual(response.status_code, 200)

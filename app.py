@@ -57,7 +57,8 @@ def lyrics():
         session['message'] += " " + request.form['message3']
         session['message'] += " " + request.form['message4']
         song_lyrics = session['message']
-        write_lyrics(song_lyrics)
+        genre = get_genre()
+        write_lyrics(genre, song_lyrics)
         return redirect(url_for('music'))
 
     if 'listy' in request.args:
@@ -95,14 +96,13 @@ def get_genre():
         return S.peek()
 
 
-def write_lyrics(song_lyrics):
+def write_lyrics(genre, song_lyrics):
     """
     writes users lyrics to a specified text file
     """
-    genre = get_genre()
     path = os.path.join('lyric_content', genre + '.txt')
     filevar = open(path, 'a+')
-    filevar.write(str(song_lyrics))
+    filevar.write(str(song_lyrics) + os.linesep)
     filevar.close()
 
 
@@ -111,7 +111,7 @@ def open_file(genre):
     opens and returns the last four lines in specified text file
     """
     path = os.path.join('lyric_content', genre + '.txt')
-    with open(path, 'w+') as f:
+    with open(path) as f:
         content = f.readlines()
         # you may also want to remove whitespace characters like `\n` at the end of each line
         content = [x.strip() for x in content]
