@@ -13,68 +13,54 @@ app.config['SECRET_KEY'] = 'F34TF$($e34D';
 #app.config['MONGO_URI'] = 'mongodb://'   # add path for settings
 
 #mongo = PyMongo(app)
-note1 = "Crack mothers"
-note2 = "crack babies and AIDS patients"
-note3 = "Youngbloods can't spell"
-note4 = "but they could rock you in PlayStation"
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    try:
-        if request.method == "POST":
 
-            session['genre'] = request.form['genre']
-            print(session['genre'])
-            
-            genre = session['genre']
-            if genre.lower() == "edm":
-                pass
-                # retrieve lyrics from database and pass to lyrics()
-                return redirect(url_for('lyrics'))
+    if request.method == "POST":
 
-            elif genre.lower() == "classical":
-                pass
-                return redirect(url_for('lyrics'))
+        session['genre'] = request.form['genre']    # retrieve genre from user
+        genre = session['genre']
+        genre = genre.lower()
 
-            elif genre.lower() == "pop":
-                pass
-                return redirect(url_for('lyrics'))
+        if genre == "edm" or genre == "classical" or genre == "pop":
+            listy = open_file(genre)   # retrieve lyrics from text file
+            listy_string = "@".join(listy).replace(" ", "+")
+            print(listy_string)
+            #lyrics(listy)
+            return redirect(url_for('lyrics')+'?listy='+listy_string)
 
-            else:
-                raise ValueError('No lyrics matching your request were found')
-                return redirect(url_for('index'))
+        else:
+            raise ValueError('No lyrics matching your request were found')
+            return redirect(url_for('index'))
 
-            return redirect(url_for('lyrics'))
-        return render_template('index.html')
-    except:
-        raise TypeError('could not process operation')
+        return redirect(url_for('lyrics'))
+    return render_template('index.html')
+
 
 
 
 
 @app.route('/lyrics', methods=['GET', 'POST'])
 def lyrics():
-    listy = [note1,note2,note3,note4]
+    listy_string = request.args.get('listy')
+    listy = listy_string.split('@')
+    #listy = ["hii", "hello"]
     if request.method == "POST":
-        session['message'] = request.form['message1']  # get search text
+        session['message'] = request.form['message1']            # get input texts
         session['message'] += " " + request.form['message2']
         session['message'] += " " + request.form['message3']
         session['message'] += " " + request.form['message4']
         song_lyrics = session['message']
-        print(song_lyrics)
 
-        # if os.path.exists(path):
-        #     filevar = open(path, 'a')
-        # else:
-        #     filevar = open(path, 'w')
-        # filevar.write(str(session['message']))
-        # filevar.write("\n")
-        # filevar.close()
         return redirect(url_for('lyrics'))
     return render_template('lyrics.html', results=listy)
 
 
-def retrieve_lyrics(genre,song_lyrics):
+def write_lyrics(genre, song_lyrics):
+    """
+    writes users lyrics to a specified text file
+    """
     path = './lyric_content/'+str(genre)+'.txt'
     if os.path.exists(path):
         filevar = open(path, 'a')
@@ -83,6 +69,20 @@ def retrieve_lyrics(genre,song_lyrics):
     filevar.write(str(song_lyrics))
     filevar.write("\n")
     filevar.close()
+
+
+def open_file(genre):
+    """
+    opens and returns the last four lines in specified text file
+    """
+    path = 'lyric_content/'+str(genre)+'.txt'
+    with open(path) as f:
+        content = f.readlines()
+        # you may also want to remove whitespace characters like `\n` at the end of each line
+        content = [x.strip() for x in content]
+    index = len(content)
+    content = [content[index-4], content[index-3], content[index-2], content[index-1]]
+    return content
 
 
 
