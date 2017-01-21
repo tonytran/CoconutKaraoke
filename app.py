@@ -97,7 +97,7 @@ def write_lyrics(song_lyrics):
     writes users lyrics to a specified text file
     """
     genre = get_genre()
-    path = 'lyric_content/'+str(genre)+'.txt'
+    path = os.path.join('lyric_content', genre + '.txt')
     if os.path.exists(path):
         filevar = open(path, 'a')
     else:
