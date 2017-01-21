@@ -22,7 +22,10 @@ def index():
 
     listy = [note1,note2,note3,note4]
     if request.method == "POST":
-        session['message'] = request.form['message']  # get search text
+        session['message'] = request.form['message1']  # get search text
+        session['message'] += " " + request.form['message2']
+        session['message'] += " " + request.form['message3']
+        session['message'] += " " + request.form['message4']
         print(session['message'])
         return redirect(url_for('index'))
     return render_template('index.html', results=listy)
