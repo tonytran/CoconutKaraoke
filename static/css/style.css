@@ -16,9 +16,7 @@ body, html {
     background-color: #f2f2f2;
 }
 body {
-  display:table-cell;
-  vertical-align:middle;
-  align-items: center;
+  padding-top: 270px;
 }
 h1,h2,h3,p {
   font-family: Helvetica;
@@ -41,7 +39,7 @@ h1,h2,h3,p {
 
 /* form itself */
 .login_form {
-    width: 300px;
+    width: 350px;
     height: auto;
     background: white;
     border-radius: 10px;
@@ -55,14 +53,88 @@ div.form-group {
   width: 200px;
 }
 
+/* width of predetermined songs */
+div.well {
+  width: 300px;
+}
+
 
 /* form inputs */
-.inputs {
-  padding-top: 20px;
+.capture input{
+  width: 200px;
 }
 
 
 /* button */
 .submit {
   padding: 20px;
+}
+
+
+/* Animations */
+#A,#B,#C,#D{
+	position:absolute;
+	left:-5%; /* Set initial position for each image off-screen left -- adjust according to image width */
+	animation:mymove 8s infinite;	/* total animation time for each image is 8 seconds, loops forever */
+	animation-direction:normal;
+	/* Firefox */
+	-moz-animation:mymove 8s infinite;
+	-moz-animation-direction:normal;
+	/* Safari, Chrome, and Webkit Opera */
+	-webkit-animation:mymove 8s infinite;
+	-webkit-animation-direction:normal;
+	/* Presto Opera */
+	-o-animation:mymove 8s infinite;
+	-o-animation-direction:normal;
+}
+
+/* start each image's animation 2 seconds after the previous */
+#A{
+	animation-delay:0s;
+	-webkit-animation-delay: 0s;
+}
+
+#B{
+	animation-delay:2s;
+	-webkit-animation-delay: 2s;
+}
+
+#C{
+	animation-delay:4s;
+	-webkit-animation-delay: 4s;
+}
+
+#D{
+	animation-delay:6s;
+	-webkit-animation-delay: 6s;
+}
+
+/* Animation start and stop points */
+@keyframes mymove
+	{
+	from {left:-5%;}	/*off-screen left (adjust for image width)*/
+	to {left:100%;}		/*off-screen right*/
+	}
+
+@-moz-keyframes mymove /* Firefox */
+	{
+	from {left:-5%;}
+	to {left:100%;}
+	}
+
+@-webkit-keyframes mymove /* Safari, Chrome, and Webkit Opera */
+	{
+	from {left:-5%;}
+	to {left:100%;}
+	}
+
+@-o-keyframes mymove /* Presto Opera */
+	{
+	from {left:-5%;}
+	to {left:100%;}
+	}
+
+div.animate {
+
+
 }

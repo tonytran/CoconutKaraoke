@@ -10,6 +10,16 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link href="/static/css/style.css" rel="stylesheet">
 
+    <style>
+    body {
+      background-image: url("/static/img/I.jpg");
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: bottom;
+      height: 100%;
+    }
+    </style>
+
   </head>
   <body>
 
@@ -42,36 +52,66 @@
                       </div>
                     </div>
 
-                    <form> <!-- start of inputs -->
-                     <div class="inputs">
 
+
+                    <!-- start of inputs -->
+                     <div class="inputs">
+                       <form>
                        <!--input 1-->
-                        <div class="form-group">
-                        <label for="sel1">Listening Type</label>
-                          <select class="form-control" id="sel1">
-                            <option>Karaoke</option>
-                            <option>Casual Listening</option>
-                          </select>
-                        </div>
+                        <div class="well form-group">
+                          {% for i in results %}
+                              <form action="{{ url_for('index') }}" method="post">
+                                  <div class="row">
+                                    <div class="col-lg-12">
+                                        <span>{{ i }}</span>
+                                    </div>
+                                  </div>
+                              </form>
+                              {% endfor %}
+
+                          </div>  <!--End inputs-->
+
+
 
                         <!--input 2-->
+                        {% extends "layout.html" %}
+                        {% block content %}
+                        <h3>Enter Your Lyrics</h3>
+                        <div class="row capture">
+                            <form action="{{ url_for('index') }}" method='POST'>
+                                <div class="form-group">
+                                    <input type="text" name="message"></input>
+                                    <input type="text" name="message"></input>
+                                    <input type="text" name="message"></input>
+                                    <input type="text" name="message"></input>
+                                </div>
+                            </form>
+                       </div>
+
+
+
+                        <!--input 3-->
                         <div class="form-group">
                         <label for="sel1">Genre</label>
-                          <select class="form-control" id="sel1">
-                            <option>EDM</option>
-                            <option>Classical</option>
-                            <option>Pop</option>
-                          </select>
+                           <select class="form-control" id="sel1">
+                              <option>EDM</option>
+                              <option>Classical</option>
+                              <option>Pop</option>
+                           </select>
                         </div>
+
+
 
                         <!--button-->
                         <div class="submit">
-                          <button type="button" class="btn btn-info">Submit</button>
+                           <button type="submit" class="btn btn-info">Submit</button>
                        </div>
 
-                   </div>  <!-- end of inputs-->
-                  </form>
+                       {% endblock %}
 
+                    </form>
+                   </div>  <!-- end of inputs-->
+              </div>
           </div> <!--end login_div-->
 
 
@@ -83,6 +123,12 @@
     </div> <!-- End Container -->
 
 
+    <!-- <div class="animate">
+       <img src="/static/img/coconut.png" id="A" alt="A" style="height:40px"/>
+       <img src="/static/img/coconut.png" id="B" alt="A" style="height:40px"/>
+       <img src="/static/img/coconut.png" id="C" alt="A" style="height:40px"/>
+       <img src="/static/img/coconut.png" id="D" alt="A" style="height:40px"/>
+    </div> -->
 
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

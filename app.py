@@ -2,8 +2,8 @@
 # Coconut Karaoke
 # 20 January 2017
 
-
-from flask import Flask, render_template
+import jinja2
+from flask import Flask, render_template, request, redirect, url_for, abort, session
 
 app = Flask(__name__)
 
@@ -11,10 +11,19 @@ app = Flask(__name__)
 #app.config['MONGO_URI'] = 'mongodb://'   # add path for settings
 
 #mongo = PyMongo(app)
+note1 = "Crack mothers"
+note2 = "crack babies and AIDS patients"
+note3 = "Youngbloods can't spell"
+note4 = "but they could rock you in PlayStation"
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def index():
-    return render_template('index.html')
+
+    listy = [note1,note2,note3,note4]
+    if request.method == "POST":
+        session['message'] = request.form['message']  # get search text
+        return redirect(url_for('index.html'))
+    return render_template('index.html', results=listy)
 
 
 
