@@ -2,39 +2,44 @@
 # Coconut Karaoke
 # 20 January 2017
 
+from stack import Stack
 import os
 import jinja2
 from flask import Flask, render_template, request, redirect, url_for, abort, session
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'F34TF$($e34D';
+S = Stack()
 
-#app.config['MONGO_DBNAME'] = 'CK'  # CK = Coconut Karaoke
-#app.config['MONGO_URI'] = 'mongodb://'   # add path for settings
-
-#mongo = PyMongo(app)
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
+    import urllib
 
     if request.method == "POST":
 
-        session['genre'] = request.form['genre']    # retrieve genre from user
-        genre = session['genre']
+        # The valid genre types
+        genres = [
+            'edm',
+            'classical',
+            'pop'
+        ]
+
+        genre = request.form['genre']    # retrieve genre from user
+
         genre = genre.lower()
 
-        if genre == "edm" or genre == "classical" or genre == "pop":
+        if genre in genres:
+            push_genre(genre)  # throw genre in stack to allow us to grab later
             listy = open_file(genre)   # retrieve lyrics from text file
-            listy_string = "@".join(listy).replace(" ", "+")
-            print(listy_string)
-            #lyrics(listy)
-            return redirect(url_for('lyrics')+'?listy='+listy_string)
+            listy_string = urllib.parse.quote("@".join(listy))
+
+            return redirect(url_for('lyrics')+'?listy='+listy_string) # add lyrics to browser to grab later
 
         else:
             raise ValueError('No lyrics matching your request were found')
             return redirect(url_for('index'))
 
-        return redirect(url_for('lyrics'))
     return render_template('index.html')
 
 
@@ -43,33 +48,58 @@ def index():
 
 @app.route('/lyrics', methods=['GET', 'POST'])
 def lyrics():
-    listy_string = request.args.get('listy')
-    listy = listy_string.split('@')
-    #listy = ["hii", "hello"]
+
     if request.method == "POST":
+
         session['message'] = request.form['message1']            # get input texts
         session['message'] += " " + request.form['message2']
         session['message'] += " " + request.form['message3']
         session['message'] += " " + request.form['message4']
         song_lyrics = session['message']
+        write_lyrics(song_lyrics)
+        return redirect(url_for('music'))
 
-        return redirect(url_for('lyrics'))
+    listy_string = request.args.get('listy')
+    listy = listy_string.split('@')
+
     return render_template('lyrics.html', results=listy)
 
 
-def write_lyrics(genre, song_lyrics):
+@app.route('/music')
+def music():
+    genre = get_genre()
+    data = open_file(genre)
+    return render_template('music.html', results=data)
+
+
+
+
+#==============Generic Functions===============================================
+def push_genre(genre):
+    """
+    pushes most recently selected genre to stack
+    """
+    S.push(genre)
+
+def get_genre():
+    """
+    returns most recent genre chosen
+    """
+    return S.peek()
+
+
+def write_lyrics(song_lyrics):
     """
     writes users lyrics to a specified text file
     """
-    path = './lyric_content/'+str(genre)+'.txt'
+    genre = get_genre()
+    path = 'lyric_content/'+str(genre)+'.txt'
     if os.path.exists(path):
         filevar = open(path, 'a')
     else:
         filevar = open(path, 'w')
     filevar.write(str(song_lyrics))
-    filevar.write("\n")
     filevar.close()
-
 
 
 def open_file(genre):
