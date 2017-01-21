@@ -26,7 +26,9 @@ def index():
         session['message'] += " " + request.form['message2']
         session['message'] += " " + request.form['message3']
         session['message'] += " " + request.form['message4']
+        session['genre'] = request.form['genre']
         print(session['message'])
+        print(session['genre'])
         return redirect(url_for('index'))
     return render_template('index.html', results=listy)
 
