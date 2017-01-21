@@ -37,9 +37,7 @@
 
 
           <div align="center" class="login_div">
-              <form class="login_form" action="{{ url_for('index') }}" method='POST'>
-
-
+              <form class="login_form">
                     <div class="row">
                       <div class="col-sm-12">
                         <div class="col-sm-2">
@@ -53,53 +51,66 @@
                         <div class="col-sm-offset-4">
                         </div>
                       </div>
-                    </div> <!--end row-->
+                    </div>
 
 
 
                     <!-- start of inputs -->
                      <div class="inputs">
 
+                       <!--input 1-->
+                        <div class="well form-group">
+                          {% for i in results %}
+                              <form action="{{ url_for('index') }}" method="post">
+                                  <div class="row">
+                                    <div class="col-lg-12">
+                                        <span>{{ i }}</span>
+                                    </div>
+                                  </div>
+                              </form>
+                              {% endfor %}
+
+                          </div>  <!--End form group-->
 
 
 
-                           <!--input 2-->
-                           {% extends "layout.html" %}
-                           {% block content %}
-                           <h3>Enter Your Lyrics</h3>
-                           <div class="row capture">
+                        <!--input 2-->
+                        {% extends "layout.html" %}
+                        {% block content %}
+                        <h3>Enter Your Lyrics</h3>
+                        <div class="row capture">
+                            <form action="{{ url_for('lyrics') }}" method='POST'>
+                                <div class="form-group">
+                                    <input type="text" name="message1"></input>
+                                    <input type="text" name="message2"></input>
+                                    <input type="text" name="message3"></input>
+                                    <input type="text" name="message4"></input>
 
-
-                           <!--input 3-->
-                           <div class="form-group">
-                           <label>Genre</label>
-                              <select  name="genre" class="form-control">
-                                 <option>EDM</option>
-                                 <option>Classical</option>
-                                 <option>Pop</option>
-                              </select>
-                           </div>
-
-
-                           <!--button-->
-                           <div class="submity">
-                              <button type="submit" class="btn btn-info">Submit</button>
-                          </div>
+                       </div>
 
 
 
-                        </div> <!--end capture-->
-                      </div>  <!-- end of inputs-->
-                    </form>
-             </div> <!--end login_div-->
+                        <!--button-->
+                        <div class="submity">
+                           <button type="submit" class="btn btn-info">Submit</button>
+                       </div>
 
 
-             <div class="col-lg-offset-3">  <!-- left offset-->
-             </div>
-           </div> <!-- end col-lg-12-->
-         </div> <!-- End Row -->
-       </div> <!-- End Container -->
-       {% endblock %}
+                        </form>
+                      </div>
+                      {% endblock %}
+                   </div>  <!-- end of inputs-->
+              </div>
+          </div> <!--end login_div-->
+
+
+          <div class="col-lg-offset-3">  <!-- left offset-->
+          </div>
+        </div> <!-- end col-lg-12-->
+      </div> <!-- End Row -->
+    </div> <!-- End Container -->
+
+
     <!-- <div class="animate">
        <img src="/static/img/coconut.png" id="A" alt="A" style="height:40px"/>
        <img src="/static/img/coconut.png" id="B" alt="A" style="height:40px"/>
