@@ -89,7 +89,10 @@ def get_genre():
     """
     returns most recent genre chosen
     """
-    return S.peek()
+    if S.isEmpty():
+        return 'no-genre'
+    else:
+        return S.peek()
 
 
 def write_lyrics(song_lyrics):
@@ -98,10 +101,7 @@ def write_lyrics(song_lyrics):
     """
     genre = get_genre()
     path = os.path.join('lyric_content', genre + '.txt')
-    if os.path.exists(path):
-        filevar = open(path, 'a')
-    else:
-        filevar = open(path, 'w')
+    filevar = open(path, 'a+')
     filevar.write(str(song_lyrics))
     filevar.close()
 
@@ -110,13 +110,13 @@ def open_file(genre):
     """
     opens and returns the last four lines in specified text file
     """
-    path = 'lyric_content/'+str(genre)+'.txt'
-    with open(path) as f:
+    path = os.path.join('lyric_content', genre + '.txt')
+    with open(path, 'w+') as f:
         content = f.readlines()
         # you may also want to remove whitespace characters like `\n` at the end of each line
         content = [x.strip() for x in content]
     index = len(content)
-    content = [content[index-4], content[index-3], content[index-2], content[index-1]]
+    content = [content[-4], content[-3], content[-2], content[-1]]
     return content
 
 
