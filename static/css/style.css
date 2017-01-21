@@ -15,9 +15,7 @@ body, html {
     display:table;
     background-color: #f2f2f2;
 }
-body {
-  padding-top: 270px;
-}
+
 h1,h2,h3,p {
   font-family: Helvetica;
 }
@@ -33,9 +31,15 @@ h1,h2,h3,p {
     left: 50%;
     margin-top: -150px;
     margin-left: -150px;
-    box-shadow: 0 15px 20px rgba(0, 0, 0, 0.3);
+
 }
 
+/* form outer div */
+.login_div_two {
+    position: absolute;
+    width: 300px;
+    height: auto;
+}
 
 /* form itself */
 .login_form {
@@ -45,10 +49,56 @@ h1,h2,h3,p {
     border-radius: 10px;
     margin: 0;
     padding: 0;
+    opacity: 1;
+}
+/* form itself */
+.login_form_two {
+    width: 450px;
+    height: auto;
+    background: white;
+    border-radius: 10px;
+    margin: 0;
+    padding: 0;
+    opacity: .9;
+    box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);
+}
+
+.login_form_three {
+    width: 300px;
+    height: auto;
+    background: #FF1493;
+    color: white;
+    border-radius: 10px;
+    border: 3px solid white;
+    opacity: .8;
+    margin: 0;
+    padding: 0;
+    box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);
+}
+
+div.form_ {
+  padding-bottom: 20px;
+}
+
+div.play {
+  padding-bottom: 10px;
+}
+
+div.play a:hover {
+  opacity: .5;
+}
+
+div.col_2 {
+  padding-top: 300px;
+}
+
+div.card_title {
+  color: #004d99;
 }
 
 div.inputs {
   padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 div.images {
@@ -61,10 +111,17 @@ div.form-group {
 }
 
 /* width of predetermined songs */
-div.well {
-  width: 300px;
+div.out {
+  width: 400px;
+  background-color: #cce6ff;
+  padding-top: 10px;
+  border-radius: 10px;
+  padding-bottom: 3px;
 }
 
+div.inner {
+  width: 270px;
+}
 
 /* form inputs */
 .capture input{
@@ -75,6 +132,16 @@ div.well {
 /* button */
 .submity {
   padding: 20px;
+}
+
+div.well {
+  border-radius: 10px;
+  width: 320px;
+}
+
+div.well .two {
+  border-radius: 10px;
+  width: 380px;
 }
 
 

@@ -1,7 +1,7 @@
 # Author: Michael Hawes, Gunther Cox, Kevin Brown, Tony Tran
 # Coconut Karaoke
 # 20 January 2017
-
+import urllib
 from stack import Stack
 import os
 import jinja2
@@ -14,7 +14,7 @@ S = Stack()
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    import urllib
+
 
     if request.method == "POST":
 
@@ -68,7 +68,7 @@ def lyrics():
 @app.route('/music')
 def music():
     genre = get_genre()
-    data = open_file(genre)
+    data = return_lyrics(genre)
     return render_template('music.html', results=data)
 
 
@@ -99,6 +99,7 @@ def write_lyrics(song_lyrics):
     else:
         filevar = open(path, 'w')
     filevar.write(str(song_lyrics))
+    filevar.write('\n')
     filevar.close()
 
 
@@ -113,6 +114,18 @@ def open_file(genre):
         content = [x.strip() for x in content]
     index = len(content)
     content = [content[index-4], content[index-3], content[index-2], content[index-1]]
+    return content
+
+
+def return_lyrics(genre):
+    """
+    opens and returns the lyrics in specified text file
+    """
+    path = 'lyric_content/'+str(genre)+'.txt'
+    with open(path) as f:
+        content = f.readlines()
+        # you may also want to remove whitespace characters like `\n` at the end of each line
+        content = [x.strip() for x in content]
     return content
 
 
