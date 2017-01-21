@@ -6,6 +6,7 @@ import jinja2
 from flask import Flask, render_template, request, redirect, url_for, abort, session
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'F34TF$($e34D';
 
 #app.config['MONGO_DBNAME'] = 'CK'  # CK = Coconut Karaoke
 #app.config['MONGO_URI'] = 'mongodb://'   # add path for settings
@@ -22,10 +23,9 @@ def index():
     listy = [note1,note2,note3,note4]
     if request.method == "POST":
         session['message'] = request.form['message']  # get search text
-        return redirect(url_for('index.html'))
+        print(session['message'])
+        return redirect(url_for('index'))
     return render_template('index.html', results=listy)
-
-
 
 
 if __name__ == '__main__':

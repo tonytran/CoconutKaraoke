@@ -36,15 +36,15 @@
 
 
           <div align="center" class="login_div">
-              <form class="login_form" action="#">
+              <form class="login_form">
                     <div class="row">
                       <div class="col-sm-12">
                         <div class="col-sm-2">
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-sm-3 images">
                           <img src="/static/img/coconut.png" alt="coconut" style="height: 60px;">
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-sm-3 images">
                           <img src="/static/img/karaoke.png" alt="coconut" style="height: 60px;">
                         </div>
                         <div class="col-sm-offset-4">
@@ -56,7 +56,7 @@
 
                     <!-- start of inputs -->
                      <div class="inputs">
-                       <form>
+
                        <!--input 1-->
                         <div class="well form-group">
                           {% for i in results %}
@@ -81,11 +81,7 @@
                             <form action="{{ url_for('index') }}" method='POST'>
                                 <div class="form-group">
                                     <input type="text" name="message"></input>
-                                    <input type="text" name="message"></input>
-                                    <input type="text" name="message"></input>
-                                    <input type="text" name="message"></input>
-                                </div>
-                            </form>
+
                        </div>
 
 
@@ -93,7 +89,7 @@
                         <!--input 3-->
                         <div class="form-group">
                         <label for="sel1">Genre</label>
-                           <select class="form-control" id="sel1">
+                           <select class="form-control">
                               <option>EDM</option>
                               <option>Classical</option>
                               <option>Pop</option>
@@ -101,19 +97,17 @@
                         </div>
 
 
-
                         <!--button-->
-                        <div class="submit">
+                        <div class="submity">
                            <button type="submit" class="btn btn-info">Submit</button>
                        </div>
 
-                       {% endblock %}
 
-                    </form>
+                        </form>
+                      </div>
                    </div>  <!-- end of inputs-->
               </div>
           </div> <!--end login_div-->
-
 
 
           <div class="col-lg-offset-3">  <!-- left offset-->
@@ -121,7 +115,7 @@
         </div> <!-- end col-lg-12-->
       </div> <!-- End Row -->
     </div> <!-- End Container -->
-
+    {% endblock %}
 
     <!-- <div class="animate">
        <img src="/static/img/coconut.png" id="A" alt="A" style="height:40px"/>

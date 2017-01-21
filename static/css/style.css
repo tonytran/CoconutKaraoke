@@ -47,6 +47,13 @@ h1,h2,h3,p {
     padding: 0;
 }
 
+div.inputs {
+  padding-top: 10px;
+}
+
+div.images {
+  padding: 10px;
+}
 
 /* input outer layers */
 div.form-group {
@@ -66,7 +73,7 @@ div.well {
 
 
 /* button */
-.submit {
+.submity {
   padding: 20px;
 }
 
@@ -133,8 +140,3 @@ div.well {
 	from {left:-5%;}
 	to {left:100%;}
 	}
-
-div.animate {
-
-
-}
