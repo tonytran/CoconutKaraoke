@@ -3,6 +3,7 @@
 # 20 January 2017
 
 import jinja2
+import os
 from flask import Flask, render_template, request, redirect, url_for, abort, session
 
 app = Flask(__name__)
@@ -29,6 +30,14 @@ def index():
         session['genre'] = request.form['genre']
         print(session['message'])
         print(session['genre'])
+        path = './lyric_content/'+str(session['genre'])+'.txt'
+        if os.path.exists(path):
+            filevar = open(path, 'a')
+        else:
+            filevar = open(path, 'w')
+        filevar.write(str(session['message']))
+        filevar.write("\n")
+        filevar.close()
         return redirect(url_for('index'))
     return render_template('index.html', results=listy)
 
