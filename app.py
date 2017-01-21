@@ -2,8 +2,8 @@
 # Coconut Karaoke
 # 20 January 2017
 
-import jinja2
 import os
+import jinja2
 from flask import Flask, render_template, request, redirect, url_for, abort, session
 
 app = Flask(__name__)
@@ -71,6 +71,7 @@ def write_lyrics(genre, song_lyrics):
     filevar.close()
 
 
+<<<<<<< HEAD
 def open_file(genre):
     """
     opens and returns the last four lines in specified text file
@@ -87,5 +88,8 @@ def open_file(genre):
 
 
 
+=======
+>>>>>>> 7b5236ae48871d67ccc6ab833c28fa59d22026b5
 if __name__ == '__main__':
-    app.run(debug=True) # start this webserver
+    PORT = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=PORT, debug=True)

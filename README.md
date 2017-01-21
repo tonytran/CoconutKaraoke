@@ -2,11 +2,10 @@
 
 App in short: An artificial intelligence music generator.
 
-Necessary Installs:
+# Setup
 
-    -   Python
-    -   pip
-    -   Flask
+To install the Python requirements for this app run:
 
-
-
+```
+pip install -r requirements.txt
+```
