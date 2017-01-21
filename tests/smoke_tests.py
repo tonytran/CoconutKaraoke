@@ -25,3 +25,11 @@ class ViewSmokeTestCase(TestCase):
         response = self.app.get('/')
 
         self.assertEqual(response.status_code, 200)
+
+    def test_lyrics(self):
+        """
+        Test that the lyrics page can be loaded.
+        """
+        response = self.app.get('/lyrics')
+
+        self.assertEqual(response.status_code, 200)

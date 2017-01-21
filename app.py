@@ -60,8 +60,11 @@ def lyrics():
         write_lyrics(song_lyrics)
         return redirect(url_for('music'))
 
-    listy_string = request.args.get('listy')
-    listy = listy_string.split('@')
+    if 'listy' in request.args:
+        listy_string = request.args.get('listy')
+        listy = listy_string.split('@')
+    else:
+        listy = []
 
     return render_template('lyrics.html', results=listy)
 
