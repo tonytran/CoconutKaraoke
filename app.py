@@ -1,14 +1,16 @@
 # Author: Michael Hawes, Gunther Cox, Kevin Brown, Tony Tran
 # Coconut Karaoke
 # 20 January 2017
+
 import urllib
 from stack import Stack
+
 import os
-import jinja2
-from flask import Flask, render_template, request, redirect, url_for, abort, session
+from stack import Stack
+from flask import Flask, render_template, request, redirect, url_for, session
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'F34TF$($e34D';
+app.config['SECRET_KEY'] = 'F34TF$($e34D'
 S = Stack()
 
 
@@ -34,7 +36,8 @@ def index():
             listy = open_file(genre)   # retrieve lyrics from text file
             listy_string = urllib.parse.quote("@".join(listy))
 
-            return redirect(url_for('lyrics')+'?listy='+listy_string) # add lyrics to browser to grab later
+            # Pass lyrics to the next page by adding them as a url parameter
+            return redirect(url_for('lyrics')+'?listy='+listy_string)
 
         else:
             raise ValueError('No lyrics matching your request were found')
@@ -51,16 +54,21 @@ def lyrics():
 
     if request.method == "POST":
 
-        session['message'] = request.form['message1']            # get input texts
+        # Retrieve the input that was entered in the form
+        session['message'] = request.form['message1']
         session['message'] += " " + request.form['message2']
         session['message'] += " " + request.form['message3']
         session['message'] += " " + request.form['message4']
         song_lyrics = session['message']
-        write_lyrics(song_lyrics)
+        genre = get_genre()
+        write_lyrics(genre, song_lyrics)
         return redirect(url_for('music'))
 
-    listy_string = request.args.get('listy')
-    listy = listy_string.split('@')
+    if 'listy' in request.args:
+        listy_string = request.args.get('listy')
+        listy = listy_string.split('@')
+    else:
+        listy = []
 
     return render_template('lyrics.html', results=listy)
 
@@ -85,10 +93,13 @@ def get_genre():
     """
     returns most recent genre chosen
     """
-    return S.peek()
+    if S.isEmpty():
+        return 'no-genre'
+    else:
+        return S.peek()
 
 
-def write_lyrics(song_lyrics):
+def write_lyrics(genre, song_lyrics):
     """
     writes users lyrics to a specified text file
     """
@@ -100,6 +111,9 @@ def write_lyrics(song_lyrics):
         filevar = open(path, 'w')
     filevar.write(str(song_lyrics))
     filevar.write('\n')
+    path = os.path.join('lyric_content', genre + '.txt')
+    filevar = open(path, 'a+')
+    filevar.write(str(song_lyrics) + os.linesep)
     filevar.close()
 
 
@@ -107,13 +121,13 @@ def open_file(genre):
     """
     opens and returns the last four lines in specified text file
     """
-    path = 'lyric_content/'+str(genre)+'.txt'
+    path = os.path.join('lyric_content', genre + '.txt')
     with open(path) as f:
         content = f.readlines()
         # you may also want to remove whitespace characters like `\n` at the end of each line
         content = [x.strip() for x in content]
     index = len(content)
-    content = [content[index-4], content[index-3], content[index-2], content[index-1]]
+    content = [content[-4], content[-3], content[-2], content[-1]]
     return content
 
 

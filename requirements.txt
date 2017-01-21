@@ -1,4 +1,5 @@
 flask
 gunicorn
+nose
 requests
 jinja2
