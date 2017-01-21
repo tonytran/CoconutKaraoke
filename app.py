@@ -71,7 +71,7 @@ def write_lyrics(genre, song_lyrics):
     filevar.close()
 
 
-<<<<<<< HEAD
+
 def open_file(genre):
     """
     opens and returns the last four lines in specified text file
@@ -86,10 +86,6 @@ def open_file(genre):
     return content
 
 
-
-
-=======
->>>>>>> 7b5236ae48871d67ccc6ab833c28fa59d22026b5
 if __name__ == '__main__':
     PORT = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=PORT, debug=True)
