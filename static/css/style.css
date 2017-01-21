@@ -1,0 +1,53 @@
+/*
+Authors: Michael Hawes, Gunther Cox, Kevin Brown, Tony Tran
+*/
+
+body, html {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    display:table;
+    background-color: #f2f2f2;
+}
+
+body {
+  display:table-cell;
+  vertical-align:middle;
+  align-items: center;
+}
+
+h1,h2,h3,p {
+  font-family: Helvetica;
+}
+
+
+.login_div {
+    position: absolute;
+    width: 300px;
+    height: auto;
+    /* Center form on page horizontally & vertically */
+    top: 50%;
+    left: 50%;
+    margin-top: -150px;
+    margin-left: -150px;
+    box-shadow: 0 15px 20px rgba(0, 0, 0, 0.3);
+}
+
+.login_form {
+    width: 300px;
+    height: auto;
+    background: white;
+    border-radius: 10px;
+    margin: 0;
+    padding: 0;
+}
+
+div.form-group {
+  width: 200px;
+}
+
+div.inputs {
+  padding-top: 30px;
+  padding-bottom: 10px;
+}
