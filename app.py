@@ -3,15 +3,12 @@
 # 20 January 2017
 
 import urllib
-from stack import Stack
 import random
 import os
-from stack import Stack
 from flask import Flask, render_template, request, redirect, url_for, session
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'F34TF$($e34D'
-S = Stack()
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -32,7 +29,7 @@ def index():
 
         if genre in genres:
             # Add the genre to stack to allow us to get later
-            S.push(genre)
+            session['genre'] = genre
             listy = open_file(genre)   # retrieve lyrics from text file
             listy = [listy[-4], listy[-3], listy[-2], listy[-1]]
             listy_string = urllib.parse.quote("@".join(listy))
@@ -60,7 +57,7 @@ def lyrics():
         line3 = request.form['message3']
         line4 = request.form['message4']
 
-        genre = get_genre()
+        genre = session.get('genre', 'no-genre')
         write_lyrics(genre, line1, line2, line3, line4)
         return redirect(url_for('music'))
 
@@ -75,7 +72,12 @@ def lyrics():
 
 @app.route('/music')
 def music():
-    genre = get_genre()
+    genre = session.get('genre')
+
+    # Check if this page was reached without setting a genre
+    if not genre:
+        return redirect(url_for('index'))
+
     data = return_lyrics(genre)
     name = rand_song_title()
     print(name)
@@ -106,16 +108,6 @@ def play_music():
     pyglet.app.run()
 
 
-def get_genre():
-    """
-    returns most recent genre chosen
-    """
-    if S.isEmpty():
-        return 'no-genre'
-    else:
-        return S.peek()
-
-
 def rand_song_title():
     """
     returns a random song title
@@ -131,7 +123,6 @@ def write_lyrics(genre, line1, line2, line3, line4):
     """
     writes users lyrics to a specified text file
     """
-    genre = get_genre()
     path = 'lyric_content/'+str(genre)+'.txt'
     if os.path.exists(path):
         filevar = open(path, 'a')
@@ -166,7 +157,7 @@ def return_lyrics(genre):
     """
     opens and returns the lyrics in specified text file
     """
-    path = 'lyric_content/'+str(genre)+'.txt'
+    path = os.path.join('lyric_content', genre + '.txt')
     with open(path) as f:
         content = f.readlines()
         # you may also want to remove whitespace characters like `\n` at the end of each line
