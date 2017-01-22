@@ -4,7 +4,8 @@ Feature: Index page Testing
   I need to demo the app
 
   Scenario: Choose Genre
-    Given I am on the "homepage"
+    Given I am on the homepage
     When I choose a genre
-    And click the "submit" button on the "homepage"
-    Then I am redirected to the "lyrics" page
+    And click the submit button on the homepage
+    Then I am redirected to the lyrics page
+
