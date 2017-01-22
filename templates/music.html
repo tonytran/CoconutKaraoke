@@ -50,7 +50,9 @@
                     </div>
                   </div>
 
-
+        {% extends "layout.html" %}
+        {% block content %}
+        <form action="{{ url_for('music') }}" method="post">
           <!--card content-->
           <!-- start of inputs -->
            <div class="inputs">
@@ -58,13 +60,11 @@
               <div class="out form-group">
 
                 <div class="card_title row">
-                  <h3>Song Lyrics</h3>
+
+                  <h3>{{ title }}</h3>
                 </div>
 
                 <!--input 2-->
-                {% extends "layout.html" %}
-                {% block content %}
-                    <form action="{{ url_for('music') }}" method="post">
                       <div class="well two">
                       {% for i in results %}
                         <div class="row">
@@ -90,14 +90,19 @@
               </div>
                     <div class="row">
                       <div class="col-sm-12">
-                        <div class="col-sm-4">
+                        <div class="col-sm-2">
                         </div>
                         <div class="play col-sm-4">
-                          <a type="button" name="play">
+                          <a type="submit" name="play">
                               <img src="/static/img/play.png" alt="play" style="height:80px;">
                            </a>
                         </div>
-                        <div class="col-sm-offset-4">
+                        <div class="play col-sm-4">
+                          <a type="submit" name="pause">
+                              <img src="/static/img/pause.png" alt="pause" style="height:80px;">
+                           </a>
+                        </div>
+                        <div class="col-sm-offset-2">
                         </div>
                       </div>
                     </div>

@@ -53,7 +53,7 @@ h1,h2,h3,p {
 }
 /* form itself */
 .login_form_two {
-    width: 450px;
+    width: 500px;
     height: auto;
     background: white;
     border-radius: 10px;
@@ -94,6 +94,7 @@ div.col_2 {
 
 div.card_title {
   color: #004d99;
+  font-size:200px;
 }
 
 div.inputs {
@@ -112,7 +113,7 @@ div.form-group {
 
 /* width of predetermined songs */
 div.out {
-  width: 400px;
+  width: 480px;
   background-color: #cce6ff;
   padding-top: 10px;
   border-radius: 10px;
@@ -137,6 +138,11 @@ div.inner {
 div.well {
   border-radius: 10px;
   width: 320px;
+}
+
+div.two {
+  border-radius: 10px;
+  width: 460px;
 }
 
 div.well .two {

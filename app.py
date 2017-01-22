@@ -4,7 +4,7 @@
 
 import urllib
 from stack import Stack
-
+import random
 import os
 from stack import Stack
 from flask import Flask, render_template, request, redirect, url_for, session
@@ -34,6 +34,7 @@ def index():
         if genre in genres:
             push_genre(genre)  # throw genre in stack to allow us to grab later
             listy = open_file(genre)   # retrieve lyrics from text file
+            listy = [listy[-4], listy[-3], listy[-2], listy[-1]]
             listy_string = urllib.parse.quote("@".join(listy))
 
             # Pass lyrics to the next page by adding them as a url parameter
@@ -55,13 +56,13 @@ def lyrics():
     if request.method == "POST":
 
         # Retrieve the input that was entered in the form
-        session['message'] = request.form['message1']
-        session['message'] += " " + request.form['message2']
-        session['message'] += " " + request.form['message3']
-        session['message'] += " " + request.form['message4']
-        song_lyrics = session['message']
+        line1 = request.form['message1']
+        line2 = request.form['message2']
+        line3 = request.form['message3']
+        line4 = request.form['message4']
+
         genre = get_genre()
-        write_lyrics(genre, song_lyrics)
+        write_lyrics(genre, line1, line2, line3, line4)
         return redirect(url_for('music'))
 
     if 'listy' in request.args:
@@ -77,17 +78,41 @@ def lyrics():
 def music():
     genre = get_genre()
     data = return_lyrics(genre)
-    return render_template('music.html', results=data)
+    name = rand_song_title()
+    print(name)
+    if request.method == "POST":
+        play = request.form['play']
+        pause = request.form['pause']
+        if play == True:
+            pass
+            #play song here
+        elif pause == True:
+            pass
+            #pause song here
+        else:
+            raise TypeError('Please press play or pause')
+    return render_template('music.html', results=data, title=name)
 
 
 
 
 #==============Generic Functions===============================================
+def play_music():
+    """
+    plays an audio file (.wav, .ogg)
+    """
+    import pyglet
+    song = pyglet.media.load('audio file goes here')
+    song.play()
+    pyglet.app.run()
+
+
 def push_genre(genre):
     """
     pushes most recently selected genre to stack
     """
     S.push(genre)
+
 
 def get_genre():
     """
@@ -99,7 +124,18 @@ def get_genre():
         return S.peek()
 
 
-def write_lyrics(genre, song_lyrics):
+def rand_song_title():
+    """
+    returns a random song title
+    """
+    genre = str('names')
+    titles = open_file(genre)
+    num = random.randint(0, len(titles))
+    song_title = titles[num]
+    return song_title
+
+
+def write_lyrics(genre, line1, line2, line3, line4):
     """
     writes users lyrics to a specified text file
     """
@@ -109,11 +145,16 @@ def write_lyrics(genre, song_lyrics):
         filevar = open(path, 'a')
     else:
         filevar = open(path, 'w')
-    filevar.write(str(song_lyrics))
+    filevar.write(str(line1))
+    filevar.write('\n')
+    filevar.write(str(line2))
+    filevar.write('\n')
+    filevar.write(str(line3))
+    filevar.write('\n')
+    filevar.write(str(line4))
     filevar.write('\n')
     path = os.path.join('lyric_content', genre + '.txt')
     filevar = open(path, 'a+')
-    filevar.write(str(song_lyrics) + os.linesep)
     filevar.close()
 
 
@@ -126,8 +167,6 @@ def open_file(genre):
         content = f.readlines()
         # you may also want to remove whitespace characters like `\n` at the end of each line
         content = [x.strip() for x in content]
-    index = len(content)
-    content = [content[-4], content[-3], content[-2], content[-1]]
     return content
 
 
