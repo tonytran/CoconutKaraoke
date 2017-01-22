@@ -80,7 +80,6 @@ def music():
 
     data = return_lyrics(genre)
     name = rand_song_title()
-    print(name)
     if request.method == "POST":
         play = request.form['play']
         pause = request.form['pause']
@@ -145,24 +144,34 @@ def open_file(genre):
     """
     opens and returns the last four lines in specified text file
     """
-    path = os.path.join('lyric_content', genre + '.txt')
-    with open(path) as f:
-        content = f.readlines()
-        # you may also want to remove whitespace characters like `\n` at the end of each line
-        content = [x.strip() for x in content]
-    return content
+    current_directory = os.path.dirname(os.path.abspath(__file__))
+    path = os.path.join(current_directory,'lyric_content', genre + '.txt')
+    if os.path.exists(path):
+
+        with open(path) as f:
+            content = f.readlines()
+            # you may also want to remove whitespace characters like `\n` at the end of each line
+            content = [x.strip() for x in content]
+        return content
+    else:
+        raise TypeError('{} does not exists'.format(path))
 
 
 def return_lyrics(genre):
     """
     opens and returns the lyrics in specified text file
     """
-    path = os.path.join('lyric_content', genre + '.txt')
-    with open(path) as f:
-        content = f.readlines()
-        # you may also want to remove whitespace characters like `\n` at the end of each line
-        content = [x.strip() for x in content]
-    return content
+    current_directory = os.path.dirname(os.path.abspath(__file__))
+    path = os.path.join(current_directory,'lyric_content', genre + '.txt')
+    if os.path.exists(path):
+
+        with open(path) as f:
+            content = f.readlines()
+            # you may also want to remove whitespace characters like `\n` at the end of each line
+            content = [x.strip() for x in content]
+        return content
+    else:
+        raise TypeError('{} does not exists'.format(path))
 
 
 if __name__ == '__main__':
