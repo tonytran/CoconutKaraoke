@@ -22,7 +22,7 @@ for song_path in glob.glob(lyrics_dir + '*.txt'):
         if not line.strip():
             continue
 
-        line = ' '.join(reversed(line.split())).lower()
+        line = list(reversed(line.lower().split()))
 
         line_chains = list(markov_chainify(line, split_at=3))
 

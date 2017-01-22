@@ -7,8 +7,6 @@ END = object()
 
 
 def markov_chainify(sentence, split_at=2):
-    sentence = sentence.split()
-
     yield tuple([START] + sentence[:split_at - 1])
 
     if len(sentence) <= split_at:
