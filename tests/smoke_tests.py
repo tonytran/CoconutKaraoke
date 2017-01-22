@@ -42,6 +42,6 @@ class ViewSmokeTestCase(TestCase):
 
         app.write_lyrics('edm', 'This is a country song', 'This is a country song', 'This is a country song', 'This is a country song')
 
-        response = self.app.get('/music')
+        response = self.app.get('/music', follow_redirects=True)
 
         self.assertEqual(response.status_code, 200)

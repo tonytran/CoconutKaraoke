@@ -72,7 +72,12 @@ def lyrics():
 
 @app.route('/music')
 def music():
-    genre = session.get('genre', 'no-genre')
+    genre = session.get('genre')
+
+    # Check if this page was reached without setting a genre
+    if not genre:
+        return redirect(url_for('index'))
+
     data = return_lyrics(genre)
     name = rand_song_title()
     print(name)
@@ -152,7 +157,7 @@ def return_lyrics(genre):
     """
     opens and returns the lyrics in specified text file
     """
-    path = 'lyric_content/'+str(genre)+'.txt'
+    path = os.path.join('lyric_content', genre + '.txt')
     with open(path) as f:
         content = f.readlines()
         # you may also want to remove whitespace characters like `\n` at the end of each line
