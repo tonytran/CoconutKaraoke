@@ -17,7 +17,6 @@ S = Stack()
 @app.route('/', methods=['GET', 'POST'])
 def index():
 
-
     if request.method == "POST":
 
         # The valid genre types
@@ -32,7 +31,8 @@ def index():
         genre = genre.lower()
 
         if genre in genres:
-            push_genre(genre)  # throw genre in stack to allow us to grab later
+            # Add the genre to stack to allow us to get later
+            S.push(genre)
             listy = open_file(genre)   # retrieve lyrics from text file
             listy = [listy[-4], listy[-3], listy[-2], listy[-1]]
             listy_string = urllib.parse.quote("@".join(listy))
@@ -104,13 +104,6 @@ def play_music():
     song = pyglet.media.load('audio file goes here')
     song.play()
     pyglet.app.run()
-
-
-def push_genre(genre):
-    """
-    pushes most recently selected genre to stack
-    """
-    S.push(genre)
 
 
 def get_genre():
