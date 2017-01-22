@@ -14,6 +14,7 @@ def get_files():
     return list_of_midi_files
 def get_values(path):
     mid = mido.MidiFile(path)
+    print('Length',len(mid.tracks))
     values = []
     #print(mid.length)
     #print(mid.type)
@@ -28,7 +29,7 @@ def get_values(path):
     return values
 
 def make_model(values):
-    states = [([], 0)]
+    states = [((), 0)]
     curr = []
     for message in values:
         if message.type == 'note_off' or message.type =='note_on':
@@ -77,7 +78,7 @@ def main():
         count+=1
         print(len(midi_markov))
 
-    #cooldict = markov_dictify(midi_markov)
+    cooldict = markov_dictify(midi_markov)
     #print()
 
 main()
