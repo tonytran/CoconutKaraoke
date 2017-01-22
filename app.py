@@ -1,12 +1,14 @@
 # Author: Michael Hawes, Gunther Cox, Kevin Brown, Tony Tran
 # Coconut Karaoke
 # 20 January 2017
-
+import time
 import urllib
 import random
 import os
 from twilio.rest import TwilioRestClient
 from flask import Flask, render_template, request, redirect, url_for, session
+
+# all animations came from: http://anicollection.github.io/#/
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'F34TF$($e34D'
@@ -36,6 +38,7 @@ def index():
             listy_string = urllib.parse.quote("@".join(listy))
 
             # Pass lyrics to the next page by adding them as a url parameter
+            time.sleep(1)
             return redirect(url_for('lyrics')+'?listy='+listy_string)
         else:
             raise ValueError('No lyrics matching your request were found')

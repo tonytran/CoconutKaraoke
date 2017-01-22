@@ -36,7 +36,7 @@
 
 
 
-
+          <div id="square" class="bounce animated">
           <div align="center" class="login_div">
               <form class="login_form">
                     <div class="row">
@@ -103,7 +103,7 @@
                    </div>  <!-- end of inputs-->
               </div>
           </div> <!--end login_div-->
-
+        </div>
 
           <div class="col-lg-offset-3">  <!-- left offset-->
           </div>
@@ -111,6 +111,29 @@
       </div> <!-- End Row -->
     </div> <!-- End Container -->
 
+    <script>
+        // Tip: avoid this ton of code using AniJS ;)
+
+    var element = $('#square');
+
+    // when mouseover execute the animation
+    element.mouseover(function(){
+
+      // the animation starts
+      element.toggleClass('bounce animated');
+
+      // do something when animation ends
+      element.one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(e){
+
+       // trick to execute the animation again
+        $(e.target).removeClass('bounce animated');
+
+      });
+
+    });
+
+
+    </script>
 
     <!-- <div class="animate">
        <img src="/static/img/coconut.png" id="A" alt="A" style="height:40px"/>
