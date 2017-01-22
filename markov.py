@@ -30,6 +30,9 @@ def markov_dictify(chain):
         decision_part = portion[:-1]
         next_part = portion[-1]
 
+        if not decision_part or not next_part:
+            continue
+
         if decision_part not in decision_dict:
             decision_dict[decision_part] = []
 
