@@ -60,7 +60,7 @@ def lyrics():
         user_lyrics = line1 + " " + line2 + " " + line3 + " " + line4
         textToSend = "User Lyric Submission: " + user_lyrics
         if user_lyrics is not None:
-            page = 'credentials.txt'
+            page = 'api_key.txt'
             data = open_cred(page)
             toNumber = data[0]
             fromNumber = data[1]
