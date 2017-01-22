@@ -19,7 +19,9 @@ body, html {
 h1,h2,h3,p {
   font-family: Helvetica;
 }
-
+div h2 {
+  font-size: 35px;
+}
 
 /* form outer div */
 .login_div {

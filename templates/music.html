@@ -91,18 +91,19 @@
               </div>
                     <div class="row">
                       <div class="col-sm-12">
-                        <div class="col-sm-2">
+                        <div class="col-sm-1">
                         </div>
-                        <div class="play col-sm-4">
-                          <a type="submit" name="play">
-                              <img src="/static/img/play.png" alt="play" style="height:80px;">
-                           </a>
+
+                          <!--PLays a MIDI file through the web-->
+                        <div class="play col-sm-7">
+                          <audio controls>
+                            <!-- <source src="/static/audio/m.mp3" type="audio/mpeg"> -->
+                            <source src="{{ song }}" type="audio/mpeg">
+                          Your browser does not support the audio element.
+                          </audio>
                         </div>
-                        <div class="play col-sm-4">
-                          <a type="submit" name="pause">
-                              <img src="/static/img/pause.png" alt="pause" style="height:80px;">
-                           </a>
-                        </div>
+
+
                         <div class="col-sm-offset-2">
                         </div>
                       </div>

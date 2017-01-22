@@ -95,18 +95,11 @@ def music():
 
     data = return_lyrics(genre)
     name = rand_song_title()
-    if request.method == "POST":
-        play = request.form['play']
-        pause = request.form['pause']
-        if play == True:
-            pass
-            #play song here
-        elif pause == True:
-            pass
-            #pause song here
-        else:
-            raise TypeError('Please press play or pause')
-    return render_template('music.html', results=data, title=name)
+    # current_directory = os.path.dirname(os.path.abspath(__file__))
+    # path = os.path.join(current_directory,'static', 'audio', "m.mp3")
+    files = '/static/audio/m.mp3'
+
+    return render_template('music.html', results=data, title=name, song=files)
 
 
 
