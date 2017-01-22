@@ -83,6 +83,8 @@ def main():
     last_delay = 0
     mid.tracks.append(track)
     ticks = 0
+    in_use = []
+    is_in_use = {}
     for i in range(len(segments)):
         if isinstance(segments[i],tuple): #START and END are objects and I can't index/key through them
         #getting mem error for some reason
@@ -91,12 +93,17 @@ def main():
 
             note_list = segment[0]
             for note in note_list:
-                track.append(Message('note_on', note = note, time = segment[1]))
+                #generate a message and turn on
+                track.append(Message('turn_on', note = note, time = segment[1]))
 
-            for note in note_list:
-                track.append(Message('note_off', note = note, time = segment[1]))
 
-            last_delay = segment[1]
+                curr = note_list
+                #if we do this all the time how can i move to the next item and call a diff on it?
+                #use segments of -1? no thats not it i-1? 
+
+
+            ticks+=segment[1]
+
 
 
 
