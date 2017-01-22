@@ -39,7 +39,6 @@ def index():
 
             # Pass lyrics to the next page by adding them as a url parameter
             return redirect(url_for('lyrics')+'?listy='+listy_string)
-
         else:
             raise ValueError('No lyrics matching your request were found')
             return redirect(url_for('index'))
@@ -130,7 +129,7 @@ def rand_song_title():
     """
     genre = str('names')
     titles = open_file(genre)
-    num = random.randint(0, len(titles))
+    num = random.randint(0, len(titles)-1)
     song_title = titles[num]
     return song_title
 

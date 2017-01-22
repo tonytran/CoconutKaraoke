@@ -40,12 +40,9 @@ class ViewSmokeTestCase(TestCase):
         """
         import app
 
-        app.write_lyrics('test', 'This is a country song')
-        app.write_lyrics('test', 'This is a country song')
-        app.write_lyrics('test', 'This is a country song')
-        app.write_lyrics('test', 'Sing sing sing sing.')
+        app.write_lyrics('edm', 'This is a country song', 'This is a country song', 'This is a country song', 'This is a country song')
 
-        app.S.push('test')
+        app.S.push('edm')
 
         response = self.app.get('/music')
 
