@@ -5,6 +5,7 @@
 import urllib
 import random
 import os
+from twilio.rest import TwilioRestClient
 from flask import Flask, render_template, request, redirect, url_for, session
 
 app = Flask(__name__)
@@ -38,10 +39,9 @@ def index():
             return redirect(url_for('lyrics')+'?listy='+listy_string)
         else:
             raise ValueError('No lyrics matching your request were found')
-            return redirect(url_for('index'))
+
 
     return render_template('index.html')
-
 
 
 
@@ -56,6 +56,18 @@ def lyrics():
         line2 = request.form['message2']
         line3 = request.form['message3']
         line4 = request.form['message4']
+
+        user_lyrics = line1 + " " + line2 + " " + line3 + " " + line4
+        textToSend = "User Lyric Submission: " + user_lyrics
+        if user_lyrics is not None:
+            page = 'credentials.txt'
+            data = open_cred(page)
+            toNumber = data[0]
+            fromNumber = data[1]
+            A = data[2]
+            B = data[3]
+            client = TwilioRestClient(A, B)
+            client.messages.create(to=toNumber, from_=fromNumber, body=textToSend)
 
         genre = session.get('genre', 'no-genre')
         write_lyrics(genre, line1, line2, line3, line4)
@@ -172,6 +184,16 @@ def return_lyrics(genre):
         return content
     else:
         raise TypeError('{} does not exists'.format(path))
+
+def open_cred(page):
+
+    with open(page) as f:
+        creds = f.readlines()
+        # you may also want to remove whitespace characters like `\n` at the end of each line
+        creds = [x.strip() for x in creds]
+    return creds
+
+
 
 
 if __name__ == '__main__':
